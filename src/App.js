@@ -1,12 +1,12 @@
 import "./App.scss";
 import Dashboard from "./components/Dashboard";
-import CurrentOpenWeatherContextProvider from "./context/CurrentOpenWeatherContext";
+import OpenWeatherAPIContextProvider from "./context/OpenWeatherAPIContext";
 
 function App() {
   return <div>
-    <CurrentOpenWeatherContextProvider>
+    <OpenWeatherAPIContextProvider>
       <Dashboard />
-    </CurrentOpenWeatherContextProvider>
+    </OpenWeatherAPIContextProvider>
   </div>;
 }
 
