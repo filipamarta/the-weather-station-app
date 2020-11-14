@@ -4,7 +4,7 @@ import ForecastWeather from './ForecastWeather';
 
 const Dashboard = () => {
     return ( <div>
-        <h1>The Weather Station</h1>
+        <h1>Weather Station</h1>
         <CurrentWeather />
         <ForecastWeather />
     </div> );

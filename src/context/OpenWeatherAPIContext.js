@@ -15,6 +15,8 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
   const [currentCity, setCurrentCity] = useState("");
   const [currentCountry, setCurrentCountry] = useState("");
   const [currentTemperature, setCurrentTemperature] = useState("");
+  const [currentTempMin, setCurrentTempMin] = useState("");
+  const [currentTempMax, setCurrentTempMax] = useState("");
   const [currentHumidity, setCurrentHumidity] = useState("");
   const [currentWeatherMain, setCurrentWeatherMain] = useState("");
   const [currentWeatherDescription, setCurrentWeatherDescription] = useState(
@@ -61,11 +63,14 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude.toString()}&lon=${longitude.toString()}&units=${units}&APPID=${apiKey}`;
 
     axios.get(url).then((response) => {
+      console.log(response.data)
       setOpenWeatherCurrentData(response.data);
       setCurrentDate(response.data.dt);
       setCurrentCity(response.data.name);
       setCurrentCountry(response.data.sys.country);
-      setCurrentTemperature(response.data.main.temp);
+      setCurrentTemperature(Math.round(response.data.main.temp));
+      setCurrentTempMin(Math.round(response.data.main.temp_min));
+      setCurrentTempMax(Math.round(response.data.main.temp_max));
       setCurrentHumidity(response.data.main.humidity);
       setCurrentWeatherMain(response.data.weather[0].main);
       setCurrentWeatherDescription(response.data.weather[0].description);
@@ -133,6 +138,8 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
         currentCity,
         currentCountry,
         currentTemperature,
+        currentTempMin,
+        currentTempMax,
         currentHumidity,
         currentWeatherMain,
         currentWeatherDescription,

@@ -9,16 +9,18 @@ const ForecastWeather = () => {
 
   return (
       <>
-      <ul>
+      <ul className="forecast-list">
         {openWeatherForecastData.map((dailyData, i) => (
           <li key={i}>
             <p>date: {dailyData.dt}</p>
-            <p>
-              weather state: {dailyData.weather[0].main}, {dailyData.weather[0].description}
-            </p>
+            <p>{Math.round(dailyData.temp.min)} ºC / {Math.round(dailyData.temp.max)} ºC</p>
             <img src={`http://openweathermap.org/img/wn/${dailyData.weather[0].icon}@2x.png`} alt={`icon ${dailyData.weather[0].main}`} />
-            <p>temperature: {dailyData.temp.day} Celsius</p>
-            <p>humidity: {dailyData.humidity} Celsius</p>
+            <p>
+               {dailyData.weather[0].main}{/* , {dailyData.weather[0].description} */}
+            </p>
+            
+            
+            <p>{dailyData.humidity} % humidity</p>
           </li>
           ))}
       </ul>

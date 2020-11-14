@@ -9,6 +9,8 @@ const CurrentWeather = () => {
         currentCity,
         currentCountry,
         currentTemperature,
+        currentTempMin,
+        currentTempMax,
         currentHumidity,
         currentWeatherMain,
         currentWeatherDescription,
@@ -18,22 +20,22 @@ const CurrentWeather = () => {
       } = useContext(OpenWeatherAPIContext);
   return (
     <div>
-    <img
-        src={`http://openweathermap.org/img/wn/${currentIcon}@2x.png`}
-        alt={`icon ${currentWeatherMain}`}
-      />
       <h3>
         {currentCity}, {currentCountry}
       </h3>
       <p>
-        weather state: {currentWeatherMain}, {currentWeatherDescription}
-      </p>
-
-      <p>temperature: {currentTemperature} Celsius</p>
-      <p>humidity: {currentHumidity} Celsius</p>
-      <p>
         coord: {currentLatitude} lat / {currentLongitude} lon
       </p>
+      <p>{currentTempMin} ºC / {currentTempMax} ºC</p>
+      <img
+        src={`http://openweathermap.org/img/wn/${currentIcon}@2x.png`}
+        alt={`icon ${currentWeatherMain}`}
+      />
+      <p>
+        {currentWeatherMain}{/* , {currentWeatherDescription} */}
+      </p>
+      <p>{currentHumidity} % humidity</p>
+      
     </div>
   );
 };
