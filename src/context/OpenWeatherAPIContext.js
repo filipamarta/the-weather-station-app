@@ -56,6 +56,24 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
     }
   };
 
+  //get time update
+  const getTimeUpdate= (timestamp) => {
+    let data = new Date(timestamp * 1000);
+    //getDay
+    let day = data.getDate();
+    let month = data.getMonth() + 1;
+    let year = data.getFullYear();
+    //getTime
+    let hours = data.getHours();
+    let minutes = "0" + data.getMinutes();
+    let seconds = "0" + data.getSeconds();
+    //format time and day
+    let formattedDay = `${day}-${month}-${year}` ;
+    let formattedTime = `${hours}:${minutes.substr(-2)}:${seconds.substr(-2)}`;
+    
+    return `last update: ${formattedDay} at ${formattedTime}` ;
+  };
+
   //get current weather conditions from API by using latitude and longitude
   const getCurrentOpenWeatherAPI = (latitude, longitude) => {
     const apiKey = "8067b732142668fa0cee5b9830a0a802";
@@ -63,7 +81,7 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude.toString()}&lon=${longitude.toString()}&units=${units}&APPID=${apiKey}`;
 
     axios.get(url).then((response) => {
-      console.log(response.data)
+      //console.log(response.data);
       setOpenWeatherCurrentData(response.data);
       setCurrentDate(response.data.dt);
       setCurrentCity(response.data.name);
@@ -90,7 +108,7 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
     const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude.toString()}&lon=${longitude.toString()}&units=${units}&exclude=${exclude}&APPID=${apiKey}`;
 
     axios.get(url).then((response) => {
-      console.log(response.data.daily);
+      //console.log(response.data.daily);
       setOpenWeatherForecastData(response.data.daily);
 
       localStorage.setItem(
@@ -100,36 +118,6 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
     });
   };
 
-  /*   const getDay = () => {
-    var days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    var dayNum = new Date(currentDate * 1000).getDay();
-    var result = days[dayNum];
-    console.log(result);
-
-    let today = new Date();
-    let dateDay = Date.getDay();
-    let dateNow = Date.now();
-    let dateTime = new Date(currentDate * 1000);
-    let hours = dateTime.getHours();
-    let minutes = "0" + dateTime.getMinutes();
-    let seconds = "0" + dateTime.getSeconds();
-    // Display time in 00:00:00 format
-    let formattedTime =
-      hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
-
-    let [month, date, year] = new Date().toLocaleDateString("en-US").split("/");
-    let [hour, minute, second] = new Date()
-      .toLocaleTimeString("en-US")
-      .split(/:| /);
-  }; */
 
   return (
     <OpenWeatherAPIContext.Provider
@@ -147,7 +135,7 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
         currentLatitude,
         currentLongitude,
         openWeatherCurrentData,
-        openWeatherForecastData,
+        openWeatherForecastData
       }}
     >
       {children}
