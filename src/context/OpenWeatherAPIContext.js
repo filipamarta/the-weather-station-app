@@ -7,7 +7,10 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
   //latitude and longitude
   const [currentLatitude, setCurrentLatitude] = useState("");
   const [currentLongitude, setCurrentLongitude] = useState("");
+
   //current weather conditions
+  const [unit, setUnit] = useState("metric");
+  const [isCurrentLoaded, setIsCurrentLoaded] = useState(false);
   const [openWeatherCurrentData, setOpenWeatherCurrentData] = useState(
     [] || JSON.parse(localStorage.getItem("openWeatherCurrentData"))
   );
@@ -19,10 +22,8 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
   const [currentTempMax, setCurrentTempMax] = useState("");
   const [currentHumidity, setCurrentHumidity] = useState("");
   const [currentWeatherMain, setCurrentWeatherMain] = useState("");
-  const [currentWeatherDescription, setCurrentWeatherDescription] = useState(
-    ""
-  );
   const [currentIcon, setCurrentIcon] = useState("");
+
   //forecast weather conditions
   const [openWeatherForecastData, setOpenWeatherForecastData] = useState(
     [] || JSON.parse(localStorage.getItem("openWeatherForecastData"))
@@ -33,11 +34,21 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
   }, [currentLatitude]);
 
   useEffect(() => {
-    getCurrentOpenWeatherAPI(currentLatitude, currentLongitude);
+    if(currentLatitude && currentLongitude) {
+      getCurrentOpenWeatherAPI(currentLatitude, currentLongitude);
+    } else {
+      console.log("Still trying to get Latitude and Longitude values");
+    }
+    
   }, [currentLatitude, currentLongitude]);
 
   useEffect(() => {
-    getForecastOpenWeatherAPI(currentLatitude, currentLongitude);
+    if(currentLatitude && currentLongitude) {
+      getForecastOpenWeatherAPI(currentLatitude, currentLongitude);
+    } else {
+      console.log("Still trying to get Latitude and Longitude values");
+    }
+    
   }, [currentLatitude, currentLongitude]);
 
   //get current latitude and longitude from navigator.geolocation
@@ -57,7 +68,7 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
   };
 
   //get time update
-  const getTimeUpdate= (timestamp) => {
+  const getTimeUpdate = (timestamp) => {
     let data = new Date(timestamp * 1000);
     //getDay
     let day = data.getDate();
@@ -68,17 +79,16 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
     let minutes = "0" + data.getMinutes();
     let seconds = "0" + data.getSeconds();
     //format time and day
-    let formattedDay = `${day}-${month}-${year}` ;
+    let formattedDay = `${day}-${month}-${year}`;
     let formattedTime = `${hours}:${minutes.substr(-2)}:${seconds.substr(-2)}`;
-    
-    return `last update: ${formattedDay} at ${formattedTime}` ;
+
+    return `last update: ${formattedDay} at ${formattedTime}`;
   };
 
   //get current weather conditions from API by using latitude and longitude
   const getCurrentOpenWeatherAPI = (latitude, longitude) => {
     const apiKey = "8067b732142668fa0cee5b9830a0a802";
-    const units = "metric";
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude.toString()}&lon=${longitude.toString()}&units=${units}&APPID=${apiKey}`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude.toString()}&lon=${longitude.toString()}&units=${unit}&APPID=${apiKey}`;
 
     axios.get(url).then((response) => {
       //console.log(response.data);
@@ -91,8 +101,8 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
       setCurrentTempMax(Math.round(response.data.main.temp_max));
       setCurrentHumidity(response.data.main.humidity);
       setCurrentWeatherMain(response.data.weather[0].main);
-      setCurrentWeatherDescription(response.data.weather[0].description);
       setCurrentIcon(response.data.weather[0].icon);
+      setIsCurrentLoaded(true);
       localStorage.setItem(
         "openWeatherCurrentData",
         JSON.stringify(response.data)
@@ -103,9 +113,8 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
   //get forecast weather conditions for 7 days from API by using latitude and longitude
   const getForecastOpenWeatherAPI = (latitude, longitude) => {
     const apiKey = "8067b732142668fa0cee5b9830a0a802";
-    const units = "metric";
     const exclude = "current,minutely,hourly,alerts";
-    const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude.toString()}&lon=${longitude.toString()}&units=${units}&exclude=${exclude}&APPID=${apiKey}`;
+    const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude.toString()}&lon=${longitude.toString()}&units=${unit}&exclude=${exclude}&APPID=${apiKey}`;
 
     axios.get(url).then((response) => {
       //console.log(response.data.daily);
@@ -117,11 +126,12 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
       );
     });
   };
-
+ 
 
   return (
     <OpenWeatherAPIContext.Provider
       value={{
+        isCurrentLoaded,
         currentDate,
         currentCity,
         currentCountry,
@@ -130,7 +140,6 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
         currentTempMax,
         currentHumidity,
         currentWeatherMain,
-        currentWeatherDescription,
         currentIcon,
         currentLatitude,
         currentLongitude,

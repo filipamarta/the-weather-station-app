@@ -1,41 +1,37 @@
 import React, { useContext } from "react";
-import { OpenWeatherAPIContext } from '../context/OpenWeatherAPIContext';
-import './CurrentWeather.scss';
+import { OpenWeatherAPIContext } from "../context/OpenWeatherAPIContext";
+import "./CurrentWeather.scss";
 
 const CurrentWeather = () => {
+  const {
+    currentDate,
+    currentCity,
+    currentCountry,
+    currentTemperature,
+    currentTempMin,
+    currentTempMax,
+    currentWeatherMain,
+    currentIcon,
+    currentHumidity,
+  } = useContext(OpenWeatherAPIContext);
 
-    const {
-        currentDate,
-        currentCity,
-        currentCountry,
-        currentTemperature,
-        currentTempMin,
-        currentTempMax,
-        currentHumidity,
-        currentWeatherMain,
-        currentWeatherDescription,
-        currentIcon,
-        currentLatitude,
-        currentLongitude,
-      } = useContext(OpenWeatherAPIContext);
   return (
-    <div>
-      <h3>
+    <div className="current-weather text-center">
+      <h2>
         {currentCity}, {currentCountry}
-      </h3>
-      <p>
-        coord: {currentLatitude} lat / {currentLongitude} lon
+      </h2>
+      <h3 className="mt-4">{currentTemperature} ºC</h3>
+      <p className="mt-2 mb-2">
+        {currentTempMin} ºC / <span>{currentTempMax} ºC</span>
       </p>
-      <p>{currentTempMin} ºC / {currentTempMax} ºC</p>
       <img
         src={`http://openweathermap.org/img/wn/${currentIcon}@2x.png`}
         alt={`icon ${currentWeatherMain}`}
       />
-      <p>
-        {currentWeatherMain}{/* , {currentWeatherDescription} */}
+      <p className="mb-0">
+        {currentWeatherMain} <br />
+        {currentHumidity} % humidity
       </p>
-      <p>{currentHumidity} % humidity</p>
-      
     </div>
   );
 };

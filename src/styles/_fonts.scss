@@ -1,0 +1,30 @@
+//Google fonts
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Montserrat+Alternates:wght@900&family=Playfair+Display:wght@700&display=swap');
+
+
+$font-titles-sansserif: 'Montserrat Alternates', sans-serif;
+$font-titles-serif: 'Playfair Display', serif;
+$font-text: 'Montserrat', sans-serif;
+
+h1,
+h2, 
+h3 {
+    font-family: $font-titles-sansserif;
+    font-weight: 900;
+}
+
+h2 {
+    font-size: 1.2rem;
+}
+
+h3 {
+    font-size: 2rem;
+}
+
+p {
+    font-family: $font-text;
+    font-weight: 400;
+    font-size: 12px;
+}
+
+
