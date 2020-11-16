@@ -13,7 +13,7 @@ const CityWeather = ({ city }) => {
         type="button"
         name="delete"
         onClick={() => {
-          deleteCity(city.id);
+          deleteCity(city.name);
         }}
       ></Button>
 

@@ -8,7 +8,7 @@ import { OpenWeatherAPICitiesContext } from "../context/OpenWeatherAPICitiesCont
 
 const Dashboard = () => {
   const { isCurrentLoaded } = useContext(OpenWeatherAPIContext);
-  const { isCitiesDataLoaded, citiesData } = useContext(
+  const { citiesData } = useContext(
     OpenWeatherAPICitiesContext
   );
 
@@ -40,15 +40,13 @@ const Dashboard = () => {
           <section>
             <Row>
               <Col xs={12}>
-                {isCitiesDataLoaded ? (
+               
                   <ul className="cities-list">
                     {citiesData.map((city) => (
                       <CityWeather key={city.id} city={city} />
                     ))}
                   </ul>
-                ) : (
-                  <p>Select other city weather</p>
-                )}
+                
               </Col>
             </Row>
           </section>

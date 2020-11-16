@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 export const OpenWeatherAPICitiesContext = createContext();
 
 const OpenWeatherAPICitiesContextProvider = ({ children }) => {
-  const [cityCountry, setcityCountry] = useState(
+  const [cityCountry, setCityCountry] = useState(
     JSON.parse(localStorage.getItem("cityCountry")) || []
   );
   const [cityCountryError, setCityCountryError] = useState("");
@@ -33,13 +33,14 @@ const OpenWeatherAPICitiesContextProvider = ({ children }) => {
     localStorage.setItem("cityCountry", JSON.stringify(cityCountry));
   }, ["cityCountry", cityCountry]);
 
-  const deleteCity = (id) => {
-    console.log(`DELETE city with id: ${id}`);
-    let updateCitiesData = citiesData.filter((city) => {
-      console.log(city);
-      return city.id !== id;
-    });
-    setCitiesData(updateCitiesData);
+  const deleteCity = (cityName) => {
+    console.log(`DELETE city: ${cityName}`);
+    let updateCityCountry = cityCountry.filter((cityCountry) => cityCountry.city !== cityName);
+    let updateCitiesData = citiesData.filter((cityData) => cityData.name !== cityName);
+    console.log("updateCityCountry", updateCityCountry)
+    console.log("updateCitiesData", updateCitiesData)
+    /* setCityCountry();
+    setCitiesData(); */
   };
 
   const addCityCountry = (city, country) => {
@@ -48,7 +49,7 @@ const OpenWeatherAPICitiesContextProvider = ({ children }) => {
       (cityCountry) => cityCountry.city === city && cityCountry.country === country
     );
     if (!isCityCountryOnTheList) {
-      setcityCountry([
+      setCityCountry([
         ...cityCountry,
         { id: uuidv4(), city: city, country: country },
       ]);
@@ -129,7 +130,6 @@ const OpenWeatherAPICitiesContextProvider = ({ children }) => {
   return (
     <OpenWeatherAPICitiesContext.Provider
       value={{
-        isCitiesDataLoaded,
         citiesData,
         deleteCity,
         addCityCountry,
