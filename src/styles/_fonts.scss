@@ -1,5 +1,5 @@
 //Google fonts
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Montserrat+Alternates:wght@900&family=Playfair+Display:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Montserrat+Alternates:wght@900&family=Playfair+Display:wght@700&display=swap');
 
 
 $font-titles-sansserif: 'Montserrat Alternates', sans-serif;
@@ -8,7 +8,8 @@ $font-text: 'Montserrat', sans-serif;
 
 h1,
 h2, 
-h3 {
+h3,
+h6 {
     font-family: $font-titles-sansserif;
     font-weight: 900;
 }
@@ -21,10 +22,14 @@ h3 {
     font-size: 2rem;
 }
 
+h6 {
+    font-size: 0.8rem;
+}
+
 p {
     font-family: $font-text;
     font-weight: 400;
-    font-size: 12px;
+    font-size: 0.8rem;
 }
 
 

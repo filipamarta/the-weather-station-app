@@ -1,12 +1,13 @@
 import React, { Fragment, useState, useContext } from "react";
-import { OpenWeatherAPICitiesContext } from "../context/OpenWeatherAPICitiesContext";
 import { Form, Col, Button } from "react-bootstrap";
+import { OpenWeatherAPICitiesContext } from "../context/OpenWeatherAPICitiesContext";
+
 
 const SearchInput = () => {
-  const [cityInput, setCityInput] = useState();
-  const [countryInput, setCountryInput] = useState();
+  const [cityInput, setCityInput] = useState("");
+  const [countryInput, setCountryInput] = useState("");
   const [isFormError, setIsFormError] = useState(false);
-  const { getCityCountry } = useContext(OpenWeatherAPICitiesContext);
+  const { addCityCountry } = useContext(OpenWeatherAPICitiesContext);
 
   const handleInputChange = (event) => {
     let value = event.target.value;
@@ -17,7 +18,7 @@ const SearchInput = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (cityInput.length > 0 && countryInput.length > 0) {
-      getCityCountry(cityInput, countryInput);
+      addCityCountry(cityInput, countryInput);
       setIsFormError(false);
       setCityInput("");
       setCountryInput("");

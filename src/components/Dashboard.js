@@ -42,8 +42,8 @@ const Dashboard = () => {
               <Col xs={12}>
                 {isCitiesDataLoaded ? (
                   <ul className="cities-list">
-                    {citiesData.map((city, id) => (
-                      <CityWeather key={id} city={city} />
+                    {citiesData.map((city) => (
+                      <CityWeather key={city.id} city={city} />
                     ))}
                   </ul>
                 ) : (

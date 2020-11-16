@@ -37,11 +37,11 @@ const ForecastWeather = () => {
             ""
           ) : (
             <li key={i}>
-              <p>{getWeekDay(dailyData.dt)} <br /> {getMonthDay(dailyData.dt)}</p>
-              <p className="mt-2 mb-2">
+              <p>{getWeekDay(dailyData.dt)}, <br /> {getMonthDay(dailyData.dt)}</p>
+              <h6 className="mt-2 mb-2">
                 {Math.round(dailyData.temp.min)} ºC /{" "}
                 <span>{Math.round(dailyData.temp.max)} ºC</span>
-              </p>
+              </h6>
               <img
                 src={`http://openweathermap.org/img/wn/${dailyData.weather[0].icon}@2x.png`}
                 alt={`icon ${dailyData.weather[0].main}`}

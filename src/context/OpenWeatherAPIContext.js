@@ -12,7 +12,7 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
   const [unit, setUnit] = useState("metric");
   const [isCurrentLoaded, setIsCurrentLoaded] = useState(false);
   const [openWeatherCurrentData, setOpenWeatherCurrentData] = useState(
-    [] || JSON.parse(localStorage.getItem("openWeatherCurrentData"))
+    JSON.parse(localStorage.getItem("openWeatherCurrentData")) || [] 
   );
   const [currentDate, setCurrentDate] = useState("");
   const [currentCity, setCurrentCity] = useState("");
@@ -26,7 +26,7 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
 
   //forecast weather conditions
   const [openWeatherForecastData, setOpenWeatherForecastData] = useState(
-    [] || JSON.parse(localStorage.getItem("openWeatherForecastData"))
+    JSON.parse(localStorage.getItem("openWeatherForecastData")) || [] 
   );
 
   useEffect(() => {
