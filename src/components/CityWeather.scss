@@ -1,4 +1,28 @@
-li.favourite-city {
-    margin: 20px 0;
+li.city-weather {
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
     background-color: rgba(200, 226, 233, 0.664);
+
+    .delete-btn {
+        width: 30px;
+        height: 30px;
+        position: relative;
+        top: 0;
+        right: 0;
+        background-color: transparent;
+        border: 0;
+        padding: 0;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            background-image: url("../img/close.svg");
+            background-repeat: no-repeat;
+        }
+    }
 }

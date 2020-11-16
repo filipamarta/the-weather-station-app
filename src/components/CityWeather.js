@@ -1,23 +1,22 @@
-import React, {useContext} from "react";
-import { OpenWeatherAPICitiesContext } from "../context/OpenWeatherAPICitiesContext";
+import React, { useContext } from "react";
 import "./CityWeather.scss";
-
+import { Button } from "react-bootstrap";
+import { OpenWeatherAPICitiesContext } from "../context/OpenWeatherAPICitiesContext";
 
 const CityWeather = ({ city }) => {
   const { deleteCity } = useContext(OpenWeatherAPICitiesContext);
-  
+
   return (
-    <li className="favourite-city">
-      <button
+    <li className="city-weather">
+      <Button
         className="delete-btn"
         type="button"
         name="delete"
         onClick={() => {
           deleteCity(city.id);
         }}
-      >
-        Delete
-      </button>
+      ></Button>
+
       <h3>
         {city.name}, {city.country}
       </h3>
