@@ -9,10 +9,12 @@ const OpenWeatherAPICitiesContextProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("cityCountry")) || []
   );
   const [cityCountryError, setCityCountryError] = useState("");
+  const [isCityCountryLoaded, setIsCityCountryLoaded] = useState(false);
   const [citiesData, setCitiesData] = useState(
     JSON.parse(localStorage.getItem("citiesData")) || []
   );
   const [isCitiesDataLoaded, setCitiesDataLoaded] = useState(false);
+  const [citiesDataError, setCitiesDataError] = useState("");
 
   useEffect(() => {
     if (cityCountry) {
@@ -34,30 +36,34 @@ const OpenWeatherAPICitiesContextProvider = ({ children }) => {
   }, [cityCountry]);
 
   const deleteCity = (cityName) => {
-    console.log(`DELETE city: ${cityName}`);
-    
-    let updateCitiesData = citiesData.filter((cityData) => cityData.name !== cityName);
-    console.log("updateCitiesData", updateCitiesData)
+    let updateCitiesData = citiesData.filter(
+      (cityData) => cityData.name !== cityName
+    );
     setCitiesData(updateCitiesData);
 
-    let updateCityCountry = cityCountry.filter((cityCountry) => cityCountry.city !== cityName);
-    console.log("updateCityCountry", updateCityCountry)
+    let updateCityCountry = cityCountry.filter(
+      (cityCountry) => cityCountry.city !== cityName
+    );
     setCityCountry(updateCityCountry);
   };
 
   const addCityCountry = (city, country) => {
     //get city and country input values and save them in a single object "cityCountry"
     let isCityCountryOnTheList = cityCountry.some(
-      (cityCountry) => cityCountry.city === city && cityCountry.country === country
+      (cityCountry) =>
+        cityCountry.city === city && cityCountry.country === country
     );
     if (!isCityCountryOnTheList) {
       setCityCountry([
         ...cityCountry,
         { id: uuidv4(), city: city, country: country },
       ]);
+      setIsCityCountryLoaded(true);
+      setCityCountryError("");
       localStorage.setItem("cityCountry", JSON.stringify(cityCountry));
     } else {
-      setCityCountryError(`City ${city} is already on the list`)
+      setIsCityCountryLoaded(false);
+      setCityCountryError(`City ${city} is already on the list`);
     }
   };
 
@@ -89,8 +95,10 @@ const OpenWeatherAPICitiesContextProvider = ({ children }) => {
           },
         ]);
         setCitiesDataLoaded(true);
+        setCitiesDataError("");
       } else {
-        console.log(`City ${data.name} was already on the list`);
+        setCitiesDataLoaded(false);
+        setCitiesDataError(`City ${data.name} was already on the list`);
       }
     });
   };
@@ -133,6 +141,11 @@ const OpenWeatherAPICitiesContextProvider = ({ children }) => {
     <OpenWeatherAPICitiesContext.Provider
       value={{
         citiesData,
+        cityCountry,
+        cityCountryError,
+        isCityCountryLoaded,
+        isCitiesDataLoaded,
+        citiesDataError,
         deleteCity,
         addCityCountry,
         getCurrentOpenWeatherAPIByCityCountry,

@@ -7,7 +7,12 @@ const SearchInput = () => {
   const [cityInput, setCityInput] = useState("");
   const [countryInput, setCountryInput] = useState("");
   const [isFormError, setIsFormError] = useState(false);
-  const { addCityCountry } = useContext(OpenWeatherAPICitiesContext);
+  const {
+    citiesData,
+    cityCountry,
+    cityCountryError,
+    addCityCountry,
+  } = useContext(OpenWeatherAPICitiesContext);
 
   const handleInputChange = (event) => {
     let value = event.target.value;
@@ -67,6 +72,14 @@ const SearchInput = () => {
           </Col>
         </Form.Row>
       </Form>
+      {cityCountry.length === 0 ? (
+        <p className="text-left text-muted">Your list is empty</p>
+      ) : cityCountryError ? (
+        <p className="text-left text-muted">{cityCountryError}</p>
+      ) : (
+        ""
+      )}
+
       {isFormError ? (
         <p className="text-left text-muted">
           Don't forget to fill in both fields{" "}

@@ -97,21 +97,21 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude.toString()}&lon=${longitude.toString()}&units=${unit}&APPID=${apiKey}`;
 
     axios.get(url).then((response) => {
-      //console.log(response.data);
-      setOpenWeatherCurrentData(response.data);
-      setCurrentDate(response.data.dt);
-      setCurrentCity(response.data.name);
-      setCurrentCountry(response.data.sys.country);
-      setCurrentTemperature(Math.round(response.data.main.temp));
-      setCurrentTempMin(Math.round(response.data.main.temp_min));
-      setCurrentTempMax(Math.round(response.data.main.temp_max));
-      setCurrentHumidity(response.data.main.humidity);
-      setCurrentWeatherMain(response.data.weather[0].main);
-      setCurrentIcon(response.data.weather[0].icon);
+      let data = response.data;
+      setOpenWeatherCurrentData(data);
+      setCurrentDate(data.dt);
+      setCurrentCity(data.name);
+      setCurrentCountry(data.sys.country);
+      setCurrentTemperature(Math.round(data.main.temp));
+      setCurrentTempMin(Math.round(data.main.temp_min));
+      setCurrentTempMax(Math.round(data.main.temp_max));
+      setCurrentHumidity(data.main.humidity);
+      setCurrentWeatherMain(data.weather[0].main);
+      setCurrentIcon(data.weather[0].icon);
       setIsCurrentLoaded(true);
       localStorage.setItem(
         "openWeatherCurrentData",
-        JSON.stringify(response.data)
+        JSON.stringify(data)
       );
     });
   };
@@ -124,12 +124,11 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
     const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude.toString()}&lon=${longitude.toString()}&units=${unit}&exclude=${exclude}&APPID=${apiKey}`;
 
     axios.get(url).then((response) => {
-      //console.log(response.data.daily);
-      setOpenWeatherForecastData(response.data.daily);
-
+      let data = response.data;
+      setOpenWeatherForecastData(data.daily); 
       localStorage.setItem(
         "openWeatherForecastData",
-        JSON.stringify(response.data.daily)
+        JSON.stringify(data.daily)
       );
     });
   };
