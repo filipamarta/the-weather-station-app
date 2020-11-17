@@ -7,11 +7,9 @@ const SearchInput = () => {
   const [cityInput, setCityInput] = useState("");
   const [countryInput, setCountryInput] = useState("");
   const [isFormError, setIsFormError] = useState(false);
-  const {
-    cityCountry,
-    cityCountryError,
-    addCityCountry,
-  } = useContext(OpenWeatherAPICitiesContext);
+  const { cityCountry, cityCountryError, addCityCountry } = useContext(
+    OpenWeatherAPICitiesContext
+  );
 
   const handleInputChange = (event) => {
     let value = event.target.value;
@@ -36,7 +34,7 @@ const SearchInput = () => {
       <Row>
         <Col>
           <p className="text-left">
-            Search for other cities weather. Are you curious?
+            Check out the weather in other cities. Are you curious?
           </p>
         </Col>
       </Row>
