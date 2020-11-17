@@ -9,7 +9,6 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
   const [currentLongitude, setCurrentLongitude] = useState("");
 
   //current weather conditions
-  const [unit, setUnit] = useState("metric");
   const [isCurrentLoaded, setIsCurrentLoaded] = useState(false);
   const [openWeatherCurrentData, setOpenWeatherCurrentData] = useState(
     JSON.parse(localStorage.getItem("openWeatherCurrentData")) || [] 
@@ -51,6 +50,30 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
     
   }, [currentLatitude, currentLongitude]);
 
+  const getWeekDay = (timestamp) => {
+    let data = new Date(timestamp * 1000);
+
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const weekDay = days[data.getDay()];
+
+    return weekDay;
+  };
+
+  const getMonthDay = (timestamp) => {
+    let data = new Date(timestamp * 1000);
+    let day = data.getDate();
+    let month = data.toLocaleString('en-EN', { month: 'short' });
+    return `${day} ${month}`;
+  };
+
   //get current latitude and longitude from navigator.geolocation
   const getCurrentGeolocalization = () => {
     let longitude;
@@ -67,26 +90,9 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
     }
   };
 
-  //get time update
-  const getTimeUpdate = (timestamp) => {
-    let data = new Date(timestamp * 1000);
-    //getDay
-    let day = data.getDate();
-    let month = data.getMonth() + 1;
-    let year = data.getFullYear();
-    //getTime
-    let hours = data.getHours();
-    let minutes = "0" + data.getMinutes();
-    let seconds = "0" + data.getSeconds();
-    //format time and day
-    let formattedDay = `${day}-${month}-${year}`;
-    let formattedTime = `${hours}:${minutes.substr(-2)}:${seconds.substr(-2)}`;
-
-    return `last update: ${formattedDay} at ${formattedTime}`;
-  };
-
   //get current weather conditions from API by using latitude and longitude
   const getCurrentOpenWeatherAPI = (latitude, longitude) => {
+    const unit = "metric";
     const apiKey = "8067b732142668fa0cee5b9830a0a802";
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude.toString()}&lon=${longitude.toString()}&units=${unit}&APPID=${apiKey}`;
 
@@ -112,6 +118,7 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
 
   //get forecast weather conditions for 7 days from API by using latitude and longitude
   const getForecastOpenWeatherAPI = (latitude, longitude) => {
+    const unit = "metric";
     const apiKey = "8067b732142668fa0cee5b9830a0a802";
     const exclude = "current,minutely,hourly,alerts";
     const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude.toString()}&lon=${longitude.toString()}&units=${unit}&exclude=${exclude}&APPID=${apiKey}`;
@@ -144,7 +151,10 @@ const OpenWeatherAPIContextProvider = ({ children }) => {
         currentLatitude,
         currentLongitude,
         openWeatherCurrentData,
-        openWeatherForecastData
+        openWeatherForecastData,
+        getWeekDay,
+        getMonthDay,
+
       }}
     >
       {children}

@@ -8,9 +8,7 @@ import { OpenWeatherAPICitiesContext } from "../context/OpenWeatherAPICitiesCont
 
 const Dashboard = () => {
   const { isCurrentLoaded } = useContext(OpenWeatherAPIContext);
-  const { citiesData } = useContext(
-    OpenWeatherAPICitiesContext
-  );
+  const { citiesData } = useContext(OpenWeatherAPICitiesContext);
 
   return (
     <Fragment>
@@ -19,12 +17,11 @@ const Dashboard = () => {
           <Col
             xs={12}
             sm={{ span: 12, offset: 0 }}
-            md={{ span: 10, offset: 1 }}
+            md={{ span: 8, offset: 2 }}
             lg={{ span: 6, offset: 3 }}
             className="text-center"
           >
-            <h1 className="mt-4 mb-4">Weather Station</h1>
-            <SearchInput />
+            <h1 className="mt-0 mb-0">Weather Station</h1>
           </Col>
         </Row>
       </header>
@@ -39,16 +36,23 @@ const Dashboard = () => {
           </section>
           <section>
             <Row>
-              <Col xs={12}>
-               
-                  <ul className="cities-list">
-                    {citiesData.map((city) => (
-                      <CityWeather key={city.id} city={city} />
-                    ))}
-                  </ul>
-                
+              <Col
+                xs={12}
+                sm={{ span: 12, offset: 0 }}
+                md={{ span: 8, offset: 2 }}
+                lg={{ span: 6, offset: 3 }}
+                className="text-center mt-5 mb-5"
+              >
+                <SearchInput />
               </Col>
             </Row>
+          </section>
+          <section>
+            <ul className="row cities-list">
+              {citiesData.map((city) => (
+                <CityWeather key={city.id} city={city} />
+              ))}
+            </ul>
           </section>
         </Fragment>
       ) : (
@@ -56,7 +60,7 @@ const Dashboard = () => {
           <Spinner animation="border" variant="dark">
             <span className="sr-only">Loading...</span>
           </Spinner>
-          <p>Loading...</p>
+          <p>Loading your local weather...</p>
         </div>
       )}
     </Fragment>

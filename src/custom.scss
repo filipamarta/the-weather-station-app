@@ -1,5 +1,21 @@
-// Override default variables before the import
-$body-bg: rgb(241, 241, 241);
-
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';
+
+//Google fonts
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Montserrat+Alternates:wght@900&family=Playfair+Display:wght@700&display=swap');
+
+//Custom styles
+@import './styles/main.scss';
+
+ul.forecast-list {
+    @include media-breakpoint-down(md) {
+        flex-flow: wrap;
+        margin: 0 -10px;
+    }
+
+    li {
+        @include media-breakpoint-down(md) {
+            margin: 0 10px 20px 10px;
+        }
+    }
+}

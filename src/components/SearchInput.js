@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useContext } from "react";
-import { Form, Col, Button } from "react-bootstrap";
+import { Row, Form, Col, Button } from "react-bootstrap";
 import { OpenWeatherAPICitiesContext } from "../context/OpenWeatherAPICitiesContext";
-
+import "./SearchInput.scss";
 
 const SearchInput = () => {
   const [cityInput, setCityInput] = useState("");
@@ -29,9 +29,16 @@ const SearchInput = () => {
 
   return (
     <Fragment>
+      <Row>
+        <Col>
+          <p className="text-left">
+            Search for other cities weather. Are you curious?
+          </p>
+        </Col>
+      </Row>
       <Form onSubmit={handleSubmit}>
         <Form.Row>
-          <Col>
+          <Col xs={12} sm={4} md={4} lg={4}>
             <Form.Group controlId="addCityInput">
               <Form.Control
                 type="text"
@@ -43,7 +50,7 @@ const SearchInput = () => {
               />
             </Form.Group>
           </Col>
-          <Col>
+          <Col xs={12} sm={4} md={4} lg={4}>
             <Form.Group controlId="addCountryInput">
               <Form.Control
                 type="text"
@@ -55,13 +62,15 @@ const SearchInput = () => {
               />
             </Form.Group>
           </Col>
-          <Col lg={3}>
+          <Col xs={12} sm={4} md={4} lg={4}>
             <Button type="submit">Get Weather</Button>
           </Col>
         </Form.Row>
       </Form>
       {isFormError ? (
-        <p className="text-left text-muted">Don't forget to fill in both fields </p>
+        <p className="text-left text-muted">
+          Don't forget to fill in both fields{" "}
+        </p>
       ) : (
         ""
       )}

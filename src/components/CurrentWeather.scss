@@ -1,13 +1,14 @@
+@import '../styles/main.scss';
+
 .current-weather {
-    width: 20%;
-    margin-right: 40px;
+    padding-bottom: 20px;
     p {
-        font-size: 15px;
+        font-size: 0.9rem;
     }
     img {
         width: 70px;
     }
     span {
-        color: grey;
+        color: $grey;
     }
 }

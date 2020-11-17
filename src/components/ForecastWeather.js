@@ -3,31 +3,7 @@ import { OpenWeatherAPIContext } from "../context/OpenWeatherAPIContext";
 import "./ForecastWeather.scss";
 
 const ForecastWeather = () => {
-  const { openWeatherForecastData } = useContext(OpenWeatherAPIContext);
-
-  const getWeekDay = (timestamp) => {
-    let data = new Date(timestamp * 1000);
-
-    const days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    const weekDay = days[data.getDay()];
-
-    return weekDay;
-  };
-
-  const getMonthDay = (timestamp) => {
-    let data = new Date(timestamp * 1000);
-    let day = data.getDate();
-    let month = data.toLocaleString('en-EN', { month: 'short' });
-    return `${day} ${month}`;
-  };
+  const { getWeekDay, getMonthDay, openWeatherForecastData } = useContext(OpenWeatherAPIContext);
 
   return (
     <>

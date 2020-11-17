@@ -1,13 +1,12 @@
-//Google fonts
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Montserrat+Alternates:wght@900&family=Playfair+Display:wght@700&display=swap');
-
-
-$font-titles-sansserif: 'Montserrat Alternates', sans-serif;
-$font-titles-serif: 'Playfair Display', serif;
-$font-text: 'Montserrat', sans-serif;
+$font-titles-sansserif: 'Montserrat Alternates',
+sans-serif;
+$font-titles-serif: 'Playfair Display',
+serif;
+$font-text: 'Montserrat',
+sans-serif;
 
 h1,
-h2, 
+h2,
 h3,
 h6 {
     font-family: $font-titles-sansserif;
@@ -26,10 +25,13 @@ h6 {
     font-size: 0.8rem;
 }
 
-p {
+p{
     font-family: $font-text;
     font-weight: 400;
     font-size: 0.8rem;
 }
 
-
+.btn.btn-primary {
+    font-family: $font-text;
+    font-weight: 700;
+}

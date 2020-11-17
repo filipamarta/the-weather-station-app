@@ -1,9 +1,9 @@
 import { Fragment } from "react";
-import "./App.scss";
 import Dashboard from "./components/Dashboard";
 import OpenWeatherAPICitiesContextProvider from "./context/OpenWeatherAPICitiesContext";
 import OpenWeatherAPIContextProvider from "./context/OpenWeatherAPIContext";
 import Container from "react-bootstrap/Container";
+import "./App.scss";
 
 function App() {
   return (

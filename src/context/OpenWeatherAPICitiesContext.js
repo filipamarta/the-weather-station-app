@@ -31,16 +31,18 @@ const OpenWeatherAPICitiesContextProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("cityCountry", JSON.stringify(cityCountry));
-  }, ["cityCountry", cityCountry]);
+  }, [cityCountry]);
 
   const deleteCity = (cityName) => {
     console.log(`DELETE city: ${cityName}`);
-    let updateCityCountry = cityCountry.filter((cityCountry) => cityCountry.city !== cityName);
+    
     let updateCitiesData = citiesData.filter((cityData) => cityData.name !== cityName);
-    console.log("updateCityCountry", updateCityCountry)
     console.log("updateCitiesData", updateCitiesData)
-    /* setCityCountry();
-    setCitiesData(); */
+    setCitiesData(updateCitiesData);
+
+    let updateCityCountry = cityCountry.filter((cityCountry) => cityCountry.city !== cityName);
+    console.log("updateCityCountry", updateCityCountry)
+    setCityCountry(updateCityCountry);
   };
 
   const addCityCountry = (city, country) => {
