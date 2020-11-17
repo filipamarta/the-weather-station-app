@@ -4,7 +4,6 @@ import "./CurrentWeather.scss";
 
 const CurrentWeather = () => {
   const {
-    currentDate,
     currentCity,
     currentCountry,
     currentTemperature,

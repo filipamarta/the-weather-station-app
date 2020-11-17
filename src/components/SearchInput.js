@@ -8,7 +8,6 @@ const SearchInput = () => {
   const [countryInput, setCountryInput] = useState("");
   const [isFormError, setIsFormError] = useState(false);
   const {
-    citiesData,
     cityCountry,
     cityCountryError,
     addCityCountry,

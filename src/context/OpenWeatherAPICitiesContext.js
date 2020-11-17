@@ -25,6 +25,7 @@ const OpenWeatherAPICitiesContextProvider = ({ children }) => {
     } else {
       console.log("Still trying to get City and Country values");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cityCountry]);
 
   useEffect(() => {
